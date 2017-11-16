@@ -1,91 +1,34 @@
-// public class WeatherData {
-//     /**
-//      * このメソッドは気象観測所が
-//      * 更新されるたびに呼び出されます
-//      */
-//     public measurementsChanged() {
-//         float temp = getTempeature();
-//         float humidity = getHumidity();
-//         float pressure = getPressure();
+import java.util.Observable;
+import java.util.Observer;
 
-//         currentConditionDisplay.update(temp, humidity, pressure);
-//         statisticsDisplay.update(temp, humidity, pressure);
-//         forecastDisplay(temp, humidity, pressure);
+public class WeatherData extends Observable {
+    private float temperature;
+    private float humidity;
+    private float pressure;
 
-//         return true;
-//     }
-// }
+    public WeatherData() { }
 
-public class WeatherData {
-    /**
-     * このメソッドは気象観測所が
-     * 更新されるたびに呼び出されます
-     */
-    public measurementsChanged() {
-        float temp = getTempeature();
-        float humidity = getHumidity();
-        float pressure = getPressure();
+    public void measurementsChanged() {
+        setChanged();
+        notifyObservers();
+    }
 
-        currentConditionDisplay.update(temp, humidity, pressure);
-        statisticsDisplay.update(temp, humidity, pressure);
-        forecastDisplay(temp, humidity, pressure);
+    public void setMeasurements(float temperature, float humidity, float pressure) {
+        this.temperature = temperature;
+        this.humidity = humidity;
+        this.pressure = pressure;
+        measurementsChanged();
+    }
 
-        return true;
+    public float getTemperature() {
+        return temperature;
     }
-}
 
-// Subject
-public interface WeatherData {
-    TemperatureSenser ts = new TemperatureSenser();
-    HumiditySenser hs = new HumiditySenser();
-    PressureSenser ps = new PressureSenser();
+    public float getHumidity() {
+        return humidity;
+    }
 
-    registerObserver();
-    removeObserver();
-    notifyObservers();
-}
-
-// Observer
-public interface Disaplay {
-    update();
-}
-
-// ConcreteSubject
-public class TemperatureSensor implements WeatherData {
-    public void registerObserver() {
-    }
-    public void removeObserver() {
-    }
-    public void notifyObservers() {
-    }
-}
-public class HumiditySensor implements WeatherData {
-    public void registerObserver() {
-    }
-    public void removeObserver() {
-    }
-    public void notifyObservers() {
-    }
-}
-public class PressureSensor implements WeatherData {
-    public void registerObserver() {
-    }
-    public void removeObserver() {
-    }
-    public void notifyObservers() {
-    }
-}
-
-// Concrete Observer
-public class CurrentConditionDisplay implements Display {
-    public void update() {
-    }
-}
-public class StatisticsDisplay implements Display {
-    public void update() {
-    }
-}
-public class ForecastDisplay implements Display {
-    public void update() {
+    public float getPressure() {
+        return pressure;
     }
 }
