@@ -1,7 +1,5 @@
 public class Singleton {
-    private static Singleton uniqueInstance;
-
-    // 有効な他の変数をここに宣言
+    private volatile static Singleton uniqueInstance;
 
     // コンストラクタはprivateで宣言されていて、
     // Singletonだけがこのクラスをインスタンス化できる
@@ -11,7 +9,11 @@ public class Singleton {
     // そのインスタンスを返す
     public static Singleton getInstance() {
         if (uniqueInstance == null) {
-            uniqueInstance = new Singleton();
+            synchronized (Singleton.class) {
+                if (uniqueInstance == null) {
+                    uniqueInstance = new Singleton();
+                }
+            }
         }
         return uniqueInstance;
     }
