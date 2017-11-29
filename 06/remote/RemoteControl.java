@@ -6,7 +6,7 @@ public class RemoteControl {
         onCommands = new Command[7];
         offCommands = new Command[7];
 
-        Command noCommand = new noCommand();
+        Command noCommand = new NoCommand();
         for (int i = 0; i < 7; i++) {
             onCommands[i] = noCommand;
             offCommands[i] = noCommand;
@@ -22,7 +22,7 @@ public class RemoteControl {
         onCommands[slot].execute();
     }
 
-    public void offButtonWasPressed() {
+    public void offButtonWasPressed(int slot) {
         offCommands[slot].execute();
     }
 
